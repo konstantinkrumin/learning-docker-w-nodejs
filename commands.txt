@@ -1,0 +1,42 @@
+/* LIST DOCKER IMAGES */
+docker image ls
+
+/* DELETE A DOCKER CONTAINER */
+docker rm node-app -f
+
+/* DELETE A DOCKER CONTAINER AND ASSOCIATED VOLUME */
+docker rm node-app -fv
+
+/* BUILD A DOCKER CONTAINER FROM AN IMAGE */
+docker build -t node-app-image .
+
+/* RUN A DOCKER CONTAINER */
+docker run -v C:/Users/konst/Documents/__WORKSPACE__/Studying/_various_tutorials/node-docker/:/app:ro -p 3000:3000 -d --name node-app node-app-image 
+
+OR 
+
+docker run -v C:/Users/konst/Documents/__WORKSPACE__/Studying/_various_tutorials/node-docker/:/app:ro -v /app/node_modules --env-file ./.env -p 4000:4000 -d --name node-app node-app-image
+
+/* SHOW RUNNING DOCKER CONTAINERS */
+docker ps
+
+/* SHOW ALL DOCKER CONTAINERS */
+docker ps -a
+
+/* SHOW LOGS FOR A CONTAINER */
+docker logs node-app
+
+/* TO GET INSIDE THE CONTAINER */
+docker exec -it node-app bash
+
+/* PRINT ALL EXISTING DOCKER VOLUMES */
+docker volume ls
+
+/* REMOVE ALL EXISITING DOCKER VOLUMES */
+docker volume prune
+
+/* RUN DOCKER-COMPOSE FILE COMMANDS and RUN NEW BUILD */
+docker-compose up -d --build
+
+/* DELETE DOCKER-COMPOSE CONTAINER AND ASSOCIATED VOLUME */
+docker-compose down -v
