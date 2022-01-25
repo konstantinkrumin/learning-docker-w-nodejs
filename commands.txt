@@ -35,8 +35,11 @@ docker volume ls
 /* REMOVE ALL EXISITING DOCKER VOLUMES */
 docker volume prune
 
-/* RUN DOCKER-COMPOSE FILE COMMANDS and RUN NEW BUILD */
+/* RUN DOCKER-COMPOSE FILE COMMANDS AND RUN NEW BUILD */
 docker-compose up -d --build
 
 /* DELETE DOCKER-COMPOSE CONTAINER AND ASSOCIATED VOLUME */
 docker-compose down -v
+
+/* RUN DOCKER-COMPOSE FILE COMMANDS THAT WERE SPLIT IN 2 FILES*/
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build
