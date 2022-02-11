@@ -42,6 +42,9 @@ docker-compose down -v
 /* RUN DOCKER-COMPOSE FILE COMMANDS THAT WERE SPLIT IN 2 FILES */
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build -V
 
+/* RUN DOCKER-COMPOSE FILE COMMANDS THAT WERE SPLIT IN 2 FILES AND SCALE TO 2 NODE INSTANCES */
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --scale node-app=2
+
 /* RUN DOCKER-COMPOSE FILE COMMANDS THAT WERE SPLIT IN 2 FILES (W/O STARTING DEPENDECIES) */
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d node-app --no-deps
 
