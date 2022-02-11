@@ -23,8 +23,6 @@ docker ps
 /* SHOW ALL DOCKER CONTAINERS */
 docker ps -a
 
-/* SHOW LOGS FOR A CONTAINER */
-docker logs node-app
 
 /* TO GET INSIDE THE CONTAINER */
 docker exec -it node-app bash
@@ -55,3 +53,6 @@ docker exec -it node-docker-mongo-1  mongo -u "costa" -p "mypassword"
 
 /* TO CHECK INFO ON CONTAINER */
 docker inspect node-docker-node-app-1
+
+/* SHOW LOGS FOR A CONTAINER */
+docker logs node-docker-node-app-1 -f

@@ -40,7 +40,7 @@ exports.login = async (req, res) => {
     const isCorrect = await bcrypt.compare(password, user.password);
 
     if (isCorrect) {
-      req.status(200).json({
+      res.status(200).json({
         status: 'success',
       });
     } else {
