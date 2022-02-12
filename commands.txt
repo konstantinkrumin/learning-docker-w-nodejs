@@ -59,3 +59,14 @@ docker inspect node-docker-node-app-1
 
 /* SHOW LOGS FOR A CONTAINER */
 docker logs node-docker-node-app-1 -f
+
+/* VI COMMANDS */
+
+/* ENTER INSERT MODEL */
+i
+
+/* SAVE AND EXIT */
+ESC -> :wq -> ENTER
+
+/* OPEN FILE IN VI */
+vi .env
