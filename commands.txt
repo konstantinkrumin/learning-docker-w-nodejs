@@ -79,3 +79,15 @@ docker image tag node-docker_node-app konstantink1/docker-with-nodejs-tutorial
 
 /* PUSH TO DOCKERHUB */
 docker push konstantink1/docker-with-nodejs-tutorial
+
+/* DOCKER PUSH IMAGE */
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml push 
+
+/* DOCKER PULL IMAGE */
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+
+/* TO SET UP A WATCHTOWER IN A DOCKER CONTAINER FOR app_node-app_1 CONTAINER */
+docker run -d --name watchtower -e WATCHTOWER_TRACE=true -e WATCHTOWER_DEBUG=true -e WATCHTOWER_POLL_INTERVAL=50 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower app_node-app_1
+
+/* TO ENABLE DOCKER SWARM */
+docker swarm init --advertise-addr [IP ADDRESS]
