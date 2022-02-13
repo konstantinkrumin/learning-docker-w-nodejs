@@ -70,3 +70,12 @@ ESC -> :wq -> ENTER
 
 /* OPEN FILE IN VI */
 vi .env
+
+/* TO LOGIN IN DOCKER */
+docker login
+
+/* COPIES THE IMAGE AND GIVES IT A NEW NAME */
+docker image tag node-docker_node-app konstantink1/docker-with-nodejs-tutorial
+
+/* PUSH TO DOCKERHUB */
+docker push konstantink1/docker-with-nodejs-tutorial
