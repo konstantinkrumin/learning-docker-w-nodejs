@@ -1,21 +1,23 @@
+/* DOCKER COMMANDS */
+
 /* LIST DOCKER IMAGES */
 docker image ls
 
 /* DELETE A DOCKER CONTAINER */
-docker rm node-app -f
+docker rm [CONTAINER NAME] -f
 
 /* DELETE A DOCKER CONTAINER AND ASSOCIATED VOLUME */
-docker rm node-app -fv
+docker rm [CONTAINER NAME] -fv
 
 /* BUILD A DOCKER CONTAINER FROM AN IMAGE */
-docker build -t node-app-image .
+docker build -t [IMAGE NAME] .
 
 /* RUN A DOCKER CONTAINER */
-docker run -v C:/Users/konst/Documents/__WORKSPACE__/Studying/_various_tutorials/node-docker/:/app:ro -p 3000:3000 -d --name node-app node-app-image 
+docker run -v [FOLDER PATH]:/app:ro -p 3000:3000 -d --name [CONTAINER NAME] [IMAGE NAME]
 
 OR 
 
-docker run -v C:/Users/konst/Documents/__WORKSPACE__/Studying/_various_tutorials/node-docker/:/app:ro -v /app/node_modules --env-file ./.env -p 4000:4000 -d --name node-app node-app-image
+docker run -v [FOLDER PATH]:/app:ro -v /app/node_modules --env-file ./.env -p 4000:4000 -d --name [CONTAINER NAME] [IMAGE NAME]
 
 /* SHOW RUNNING DOCKER CONTAINERS */
 docker ps
@@ -23,15 +25,16 @@ docker ps
 /* SHOW ALL DOCKER CONTAINERS */
 docker ps -a
 
-
 /* TO GET INSIDE THE CONTAINER */
-docker exec -it node-app bash
+docker exec -it [CONTAINER NAME] bash
 
 /* PRINT ALL EXISTING DOCKER VOLUMES */
 docker volume ls
 
 /* REMOVE ALL EXISTING DOCKER VOLUMES */
 docker volume prune
+
+/* DOCKER-COMPOSE COMMANDS */
 
 /* RUN DOCKER-COMPOSE FILE COMMANDS AND RUN NEW BUILD */
 docker-compose up -d --build
@@ -43,22 +46,58 @@ docker-compose down -v
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --build -V
 
 /* RUN DOCKER-COMPOSE FILE COMMANDS THAT WERE SPLIT IN 2 FILES AND SCALE TO 2 NODE INSTANCES */
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --scale node-app=2
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d --scale [DOCKER-COMPOSE SERVICE NAME / CONTAINER NAME]=2
 
 /* RUN DOCKER-COMPOSE FILE COMMANDS THAT WERE SPLIT IN 2 FILES (W/O STARTING DEPENDECIES) */
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d node-app --no-deps
+docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d [DOCKER-COMPOSE SERVICE NAME / CONTAINER NAME] --no-deps
 
 /* TEAR DOWN WITH DOCKER-COMPOSE FILE COMMANDS THAT WERE SPLIT IN 2 FILES*/
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml down
 
 /* TO CONNECT TO OUR MONGO CLIENT */
-docker exec -it node-docker-mongo-1  mongo -u "costa" -p "mypassword"
+docker exec -it [MONGO CONTAINER NAME]  mongo -u "[MONGO USERNAME]" -p "[MONGO PASSWORD]"
 
 /* TO CHECK INFO ON CONTAINER */
-docker inspect node-docker-node-app-1
+docker inspect [CONTAINER NAME]
 
 /* SHOW LOGS FOR A CONTAINER */
-docker logs node-docker-node-app-1 -f
+docker logs [CONTAINER NAME] -f
+
+/* TO LOGIN IN DOCKER */
+docker login
+
+/* COPIES THE IMAGE AND GIVES IT A NEW NAME */
+docker image tag [CURRENT CONTAINER NAME] [UNIQUE CONTAINER NAME FOR DOCKERHUB]
+
+/* PUSH TO DOCKERHUB */
+docker push [UNIQUE CONTAINER NAME FOR DOCKERHUB]
+
+/* DOCKER PUSH IMAGE */
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml push 
+
+/* DOCKER PULL IMAGE */
+docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
+
+/* TO SET UP A WATCHTOWER IN A DOCKER CONTAINER FOR A CONTAINER */
+docker run -d --name watchtower -e WATCHTOWER_TRACE=true -e WATCHTOWER_DEBUG=true -e WATCHTOWER_POLL_INTERVAL=50 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower [CONTAINER NAME]
+
+/* DOCKER SWARM COMMANDS */
+
+/* TO ENABLE DOCKER SWARM */
+docker swarm init --advertise-addr [IP ADDRESS]
+
+/* TO START DOCKER SWARM STACK */
+docker stack deploy -c docker-compose.yml -c docker-compose.prod.yml [NAME OF STACK]
+
+/* TO LIST NODES IN DOCKER SWARM */
+docker node ls
+
+/* TO LIST STACK IN DOCKER SWARM */
+docker stack ls
+
+/* TO LIST ALL SERVICES IN DOCKER SWARM STACK */
+docker stack services [NAME OF STACK]
+
 
 /* VI COMMANDS */
 
@@ -70,24 +109,3 @@ ESC -> :wq -> ENTER
 
 /* OPEN FILE IN VI */
 vi .env
-
-/* TO LOGIN IN DOCKER */
-docker login
-
-/* COPIES THE IMAGE AND GIVES IT A NEW NAME */
-docker image tag node-docker_node-app konstantink1/docker-with-nodejs-tutorial
-
-/* PUSH TO DOCKERHUB */
-docker push konstantink1/docker-with-nodejs-tutorial
-
-/* DOCKER PUSH IMAGE */
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml push 
-
-/* DOCKER PULL IMAGE */
-docker-compose -f docker-compose.yml -f docker-compose.prod.yml pull
-
-/* TO SET UP A WATCHTOWER IN A DOCKER CONTAINER FOR app_node-app_1 CONTAINER */
-docker run -d --name watchtower -e WATCHTOWER_TRACE=true -e WATCHTOWER_DEBUG=true -e WATCHTOWER_POLL_INTERVAL=50 -v /var/run/docker.sock:/var/run/docker.sock containrrr/watchtower app_node-app_1
-
-/* TO ENABLE DOCKER SWARM */
-docker swarm init --advertise-addr [IP ADDRESS]
